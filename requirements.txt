@@ -1,8 +1,8 @@
-os
-logging
 streamlit
-langchain_groq
-langchain
-langchain.vectorstores
-langchain_huggingface
+langchain==0.0.119
+chroma-langchain
+huggingface-hub
 sentence-transformers
+langchain_huggingface
+langchain_groq
+requests
