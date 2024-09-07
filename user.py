@@ -1,6 +1,7 @@
 import os
 import logging
 import streamlit as st
+import gdown
 from langchain_groq import ChatGroq
 from langchain.schema.runnable import RunnablePassthrough, RunnableParallel
 from langchain.schema import StrOutputParser
@@ -16,9 +17,21 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Load environment variables
 os.environ["GROQ_API_KEY"] = "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"
 
+# Google Drive file ID and destination path
+file_id = 'your_google_drive_file_id'
+destination = './chroma_langchain_db.zip'
+
+def download_from_drive(file_id, destination):
+    try:
+        gdown.download(f"https://drive.google.com/drive/folders/1nE0a34uTKnMefvOuqLbBWlb-R5t_LDam?usp=sharing", destination, quiet=False)
+        os.system(f'unzip {destination} -d ./')
+        logging.info("Downloaded and extracted the vector store from Google Drive.")
+    except Exception as e:
+        logging.error(f"Failed to download from Google Drive: {e}")
+
 def load_vector_store():
     try:
-        persist_directory = "chroma_langchain_db"
+        persist_directory = "./chroma_langchain_db"
         embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
         vectorstore = Chroma(persist_directory=persist_directory, embedding_function=embedding_model)
         return vectorstore
@@ -72,6 +85,8 @@ def create_rag_chain(vectorstore):
 def main():
     st.title("Legal GPT Assistant")
     st.write("You can ask questions about the legal documents in the specified directory.")
+    
+    download_from_drive(file_id, destination)
     
     vectorstore = load_vector_store()
     if vectorstore is None:
