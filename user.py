@@ -18,7 +18,7 @@ os.environ["GROQ_API_KEY"] = "gsk_8ndcQdxmj6AWB9ftvuoiWGdyb3FYUfdd9iC1W3Hf1pfojH
 
 def load_vector_store():
     try:
-        persist_directory = "./chroma_langchain_db"
+        persist_directory = "chroma_langchain_db"
         embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
         vectorstore = Chroma(persist_directory=persist_directory, embedding_function=embedding_model)
         return vectorstore
