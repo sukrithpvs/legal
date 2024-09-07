@@ -1,8 +1,9 @@
-streamlit
+streamlit==1.38.0
 langchain==0.0.119
 chroma-langchain
-huggingface-hub
-sentence-transformers
-langchain_huggingface
-langchain_groq
-requests
+Chroma
+huggingface-hub== 0.24.6
+sentence-transformers==3.0.1
+langchain_huggingface==0.0.3
+langchain_groq==0.1.9
+requests==2.32.3
